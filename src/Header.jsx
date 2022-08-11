@@ -47,7 +47,7 @@ class Header extends Component {
     }
   }
 
-  onInputChange = event => {
+  onInputChange = (event) => {
     const str = event.target.value;
     this.setState({
       str,
@@ -73,10 +73,7 @@ class Header extends Component {
         });
         return;
       }
-      value
-        .hour(parsed.hour())
-        .minute(parsed.minute())
-        .second(parsed.second());
+      value.hour(parsed.hour()).minute(parsed.minute()).second(parsed.second());
 
       // if time value not allowed, response warning.
       if (
@@ -130,7 +127,7 @@ class Header extends Component {
     });
   };
 
-  onKeyDown = e => {
+  onKeyDown = (e) => {
     const { onEsc, onKeyDown } = this.props;
     if (e.keyCode === 27) {
       onEsc();
@@ -148,14 +145,15 @@ class Header extends Component {
     const { prefixCls, placeholder, inputReadOnly } = this.props;
     const { invalid, str } = this.state;
     const invalidClass = invalid ? `${prefixCls}-input-invalid` : '';
+    const formatedStr = str.split(/[^A-Za-z0-9]+/).join(':');
     return (
       <input
         className={classNames(`${prefixCls}-input`, invalidClass)}
-        ref={ref => {
+        ref={(ref) => {
           this.refInput = ref;
         }}
         onKeyDown={this.onKeyDown}
-        value={str}
+        value={formatedStr}
         placeholder={placeholder}
         onChange={this.onInputChange}
         readOnly={!!inputReadOnly}
